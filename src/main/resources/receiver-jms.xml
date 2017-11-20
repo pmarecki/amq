@@ -10,6 +10,7 @@
         <property name="connectionFactory" ref="jmsFactory"/>
         <property name="destinationName" value="box1"/>
         <property name="messageListener" ref="messageListener" />
+        <property name="pubSubDomain" value="true"/>
     </bean>
 
     <bean id="jmsFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
