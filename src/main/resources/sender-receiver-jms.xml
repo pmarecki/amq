@@ -33,6 +33,7 @@
 
     <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
         <constructor-arg ref="jmsFactory" />
+        <property name="pubSubDomain" value="true"/>
     </bean>
 
 
