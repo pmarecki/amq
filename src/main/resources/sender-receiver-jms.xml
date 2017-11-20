@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--<bean id="messageListener" class="jms.jms.SimpleJmsListener" />-->
+
+    <!--<bean id="jmsContainer1" class="org.springframework.jms.listener.DefaultMessageListenerContainer">-->
+    <!--<property name="connectionFactory" ref="jmsFactory"/>-->
+    <!--<property name="destinationName" value="box1"/>-->
+    <!--<property name="messageListener" ref="messageListener" />-->
+    <!--</bean>-->
+    <!---->
+    <!--<bean id="jmsContainer2" class="org.springframework.jms.listener.DefaultMessageListenerContainer">-->
+    <!--<property name="connectionFactory" ref="jmsFactory"/>-->
+    <!--<property name="destinationName" value="box1"/>-->
+    <!--<property name="messageListener" ref="messageListener" />-->
+    <!--</bean>-->
+
+    <bean id="jmsFactory" class="org.apache.activemq.ActiveMQConnectionFactory" primary="true">
+        <property name="brokerURL">
+            <!--<value>tcp://localhost:61616</value>-->
+            <value>tcp://localhost:61610</value>
+        </property>
+        <!--<property name="alwaysSessionAsync" value="true"/>-->
+    </bean>
+
+    <!--<bean id="pooledJmsFactory" class="org.apache.activemq.jms.pool.PooledConnectionFactory" primary="true">-->
+        <!--<property name="connectionFactory" ref="jmsFactory"/>-->
+    <!--</bean>-->
+
+
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <constructor-arg ref="jmsFactory" />
+    </bean>
+
+
+
+</beans>

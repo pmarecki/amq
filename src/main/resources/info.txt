@@ -1,0 +1,5 @@
+
+https://hub.docker.com/r/rmohr/activemq/
+
+The JMX broker listens on port 61616 and the Web Console on port 8161.
+
