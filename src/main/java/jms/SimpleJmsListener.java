@@ -24,18 +24,19 @@ public class SimpleJmsListener implements MessageListener, InitializingBean {
 //            throw new IllegalArgumentException("aaa");
             TextMessage tm = (TextMessage)message;
             String content = tm.getText();
-            log.info("Msg [{}] timestamp: [{}], reply-to: [{}], reply-dest: [{}], delivery-mode: [{}], " +
-                            "correlation: [{}], expiriation: [{}], priority: [{}], JMSType: [{}] ",
-                    content,
-                    Instant.ofEpochMilli(tm.getJMSTimestamp()),
-                    tm.getJMSReplyTo(),
-                    tm.getJMSDestination(),
-                    tm.getJMSDeliveryMode(),
-                    tm.getJMSCorrelationID(),
-                    tm.getJMSExpiration(),
-                    tm.getJMSPriority(),
-                    tm.getJMSType()
-            );
+            log.warn("Received message [{}]", content);
+//            log.info("Msg [{}] timestamp: [{}], reply-to: [{}], reply-dest: [{}], delivery-mode: [{}], " +
+//                            "correlation: [{}], expiriation: [{}], priority: [{}], JMSType: [{}] ",
+//                    content,
+//                    Instant.ofEpochMilli(tm.getJMSTimestamp()),
+//                    tm.getJMSReplyTo(),
+//                    tm.getJMSDestination(),
+//                    tm.getJMSDeliveryMode(),
+//                    tm.getJMSCorrelationID(),
+//                    tm.getJMSExpiration(),
+//                    tm.getJMSPriority(),
+//                    tm.getJMSType()
+//            );
         } catch (Exception e) {
             e.printStackTrace();
         }
