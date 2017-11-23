@@ -8,8 +8,9 @@
 
     <bean id="jmsReceiver" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="connectionFactory" ref="jmsFactory"/>
-        <property name="destinationName" value="box1"/>
+        <property name="destinationName" value="xxx_topic"/>
         <property name="messageListener" ref="messageListener" />
+        <!--Needed for topic-->
         <property name="pubSubDomain" value="true"/>
     </bean>
 
