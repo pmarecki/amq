@@ -8,14 +8,9 @@
 
     <bean id="jmsFactory" class="org.apache.activemq.ActiveMQConnectionFactory" primary="true">
         <property name="brokerURL">
-            <value>tcp://localhost:61610</value>
+            <value>tcp://localhost:61616</value>
         </property>
-        <!--<property name="alwaysSessionAsync" value="true"/>-->
     </bean>
-
-    <!--<bean id="pooledJmsFactory" class="org.apache.activemq.jms.pool.PooledConnectionFactory" primary="true">-->
-    <!--<property name="connectionFactory" ref="jmsFactory"/>-->
-    <!--</bean>-->
 
     <bean id="pooledJmsFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
         <property name="targetConnectionFactory" ref="jmsFactory"/>

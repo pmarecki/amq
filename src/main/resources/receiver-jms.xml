@@ -4,20 +4,21 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                 http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="messageListener" class="jms.SimpleJmsListener" />
+    <bean id="myMessageListener" class="jms.SimpleJmsListener">
+    </bean>
 
     <bean id="jmsReceiver" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-        <property name="connectionFactory" ref="jmsFactory"/>
+        <property name="connectionFactory" ref="connectionFactory"/>
         <property name="destinationName" value="xxx_topic"/>
-        <property name="messageListener" ref="messageListener" />
+        <property name="messageListener" ref="myMessageListener" />
+        <property name="subscriptionDurable" value="true"/>
         <!--Needed for topic-->
         <property name="pubSubDomain" value="true"/>
     </bean>
 
-    <bean id="jmsFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
-        <property name="brokerURL">
-            <value>tcp://localhost:61610</value>
-        </property>
+    <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://localhost:61616"/>
+        <property name="clientID" value="receiverID1"/>
     </bean>
 
 </beans>

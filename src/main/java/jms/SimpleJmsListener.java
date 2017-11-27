@@ -2,6 +2,7 @@ package jms;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -25,6 +26,8 @@ public class SimpleJmsListener implements MessageListener, InitializingBean {
             TextMessage tm = (TextMessage)message;
             String content = tm.getText();
             log.warn("Received message [{}]", content);
+//            tm.getJMSRedelivered();
+
 //            log.info("Msg [{}] timestamp: [{}], reply-to: [{}], reply-dest: [{}], delivery-mode: [{}], " +
 //                            "correlation: [{}], expiriation: [{}], priority: [{}], JMSType: [{}] ",
 //                    content,

@@ -10,14 +10,11 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
 import javax.jms.TextMessage;
-import java.util.Arrays;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 class MyMessageCreator implements MessageCreator {
@@ -25,8 +22,9 @@ class MyMessageCreator implements MessageCreator {
 
     @Override
     public Message createMessage(Session session) throws JMSException {
-        TextMessage m = session.createTextMessage();
-        m.setJMSCorrelationID("000" + counter.incrementAndGet());
+        TextMessage m = session.createTextMessage("SimpleMessage" + counter.incrementAndGet());
+        m.setJMSCorrelationID("000" + counter.get());
+
 //        m.setJMSReplyTo(jmsTemplate.getDefaultDestination());
         m.setJMSPriority(9);
         return m;
@@ -37,7 +35,7 @@ class MyMessageCreator implements MessageCreator {
 @EnableJms
 @EnableWebMvc
 @Slf4j
-@ImportResource("classpath:sender-receiver-jms.xml")
+@ImportResource("classpath:sender-jms.xml")
 public class SenderApp {
 
 
@@ -49,12 +47,18 @@ public class SenderApp {
         jmsTemplate.setDeliveryPersistent(false);
 
         MessageCreator mc = new MyMessageCreator();
+        for(;;) {
+            Scanner s = new Scanner(System.in);
+            int msgCount = s.nextInt();
+            if (msgCount==0) break;
 
-        for (int i = 0; i < 1_000_000; i++) {
-            if (i%100==0) System.out.println(i);
-            jmsTemplate.send("xxx_topic", mc);
+            for (int i = 0; i < msgCount; i++) {
+                if (i%100==0) System.out.println(i);
+                jmsTemplate.send("xxx_topic", mc);
+            }
+
         }
-        Thread.sleep(1000);
+
         ctx.close();
 
     }
